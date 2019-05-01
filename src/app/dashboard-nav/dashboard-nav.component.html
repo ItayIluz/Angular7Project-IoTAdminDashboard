@@ -1,0 +1,28 @@
+<mat-sidenav-container class="sidenav-container">
+      <mat-sidenav  
+      #drawer  
+      [opened]="!small"  
+      class="sidenav mat-elevation-z8 bg-semidark "
+      fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'" >
+        <mat-toolbar class="text-white">Menu</mat-toolbar>
+        <mat-nav-list class="nav-list">
+          <a class="menu-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}" routerLink="/" mat-list-item href="#"><mat-icon>dashboard</mat-icon> &nbsp; Dashboard</a>
+          <a class="menu-item" routerLinkActive="active-link" routerLink="/classrooms-list" mat-list-item href="#"><mat-icon>table_chart</mat-icon> &nbsp; Classrooms List</a>
+          <a class="menu-item" routerLinkActive="active-link" routerLink="/thermometer-view" mat-list-item href="#"><mat-icon>whatshot</mat-icon> &nbsp; Temperature</a>
+          <a class="menu-item" routerLinkActive="active-link" routerLink="/powermeter-view" mat-list-item href="#"><mat-icon>offline_bolt</mat-icon> &nbsp; Power</a>
+          <a class="menu-item" routerLinkActive="active-link" routerLink="/motion-lighting-view" mat-list-item href="#"><mat-icon>highlight</mat-icon> &nbsp; Motion & Lighting</a>
+          <a class="menu-item" routerLinkActive="active-link" routerLink="/doors-windows-view" mat-list-item href="#"><mat-icon>lock</mat-icon> &nbsp; Doors & Windows</a>
+          <a class="menu-item" routerLinkActive="active-link" routerLink="/notifications" mat-list-item href="#"><mat-icon>notification_important</mat-icon> &nbsp; Notifications</a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+          <mat-toolbar class="text-white bg-semidark">
+            <span>Material Dashboard</span>
+            <span class="example-fill-remaining-space"></span>  
+            
+            <span class="example-fill-remaining-space"></span>  
+    </mat-toolbar>
+  </mat-sidenav-content>
+</mat-sidenav-container>

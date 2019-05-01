@@ -1,0 +1,21 @@
+.full-width-table {
+  width: 100%;
+}
+
+.ripple {
+  background-position: center;
+  transition: background 1s;
+}
+.ripple:hover {
+  background: white radial-gradient(circle, transparent 1%, white 1%) start/15000%;
+}
+.ripple:active {
+  background-color: #ccc;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.search-box {
+  margin-top: 15px;
+  margin-left: 50px;
+}

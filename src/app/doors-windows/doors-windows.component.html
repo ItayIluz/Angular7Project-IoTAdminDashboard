@@ -1,0 +1,18 @@
+<div id="{{'doors-windows-classroom-'+data.id}}" class="doors-windows-display card bg-light mb-3">
+    <div class="classroom-title card-header"><span>Class {{data.classroom}}</span></div>
+    <div class="card-body">
+        <div *ngFor="let door of this.data.doorSensors; let i = index" [attr.data-index]="i">
+          <app-door-sensor
+            [number]="i+1"
+            [isOpen]="door.isOpen">
+          </app-door-sensor>
+        </div>
+        <hr>
+        <div *ngFor="let window of this.data.windowSensors; let i = index" [attr.data-index]="i">
+          <app-window-sensor  
+            [number]="i+1"
+            [isOpen]="window.isOpen">
+          </app-window-sensor>
+      </div>
+    </div>
+</div>

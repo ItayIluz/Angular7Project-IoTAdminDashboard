@@ -1,0 +1,43 @@
+<div *ngIf="classroom" class="classroom-cards margin-left">
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>
+        Temperature & Humidity
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="dashboard-card-content">
+        <app-thermometer [data]="classroom"></app-thermometer>
+    </mat-card-content>
+  </mat-card>
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          Energy Consumption
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+          <app-powermeter [data]="classroom"></app-powermeter>
+      </mat-card-content>
+    </mat-card>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Doors & Windows Status
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+            <app-doors-windows [data]="classroom"></app-doors-windows>
+        </mat-card-content>
+      </mat-card>
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+            <mat-card-title>
+              Motion Detection & Lighting
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+              <app-motion-lighting [data]="classroom"></app-motion-lighting>
+          </mat-card-content>
+        </mat-card>
+  </div>
+  

@@ -1,0 +1,74 @@
+[
+    {
+        "id": 34,
+        "temperature": 24,
+        "humidity": 12,
+        "watt": 100,
+        "lightIsOn": true,
+        "lastMotionDetection": "2019-03-17 03:04:11",
+        "doorSensors": [
+            { "isOpen": true },
+            { "isOpen": false }
+        ],
+        "windowSensors": [
+            { "isOpen": true },
+            { "isOpen": false },
+            { "isOpen": false },
+            { "isOpen": true }
+        ]
+    },
+    {
+        "id": 35,
+        "temperature": 26,
+        "humidity": 14,
+        "watt": 120,
+        "lightIsOn": true,
+        "lastMotionDetection": "2019-03-17 03:04:11",
+        "doorSensors": [
+            { "isOpen": false },
+            { "isOpen": false }
+        ],
+        "windowSensors": [
+            { "isOpen": true },
+            { "isOpen": true },
+            { "isOpen": false },
+            { "isOpen": true }
+        ]
+    },
+    {
+        "id": 36,
+        "temperature": 20,
+        "humidity": 7,
+        "watt": 50,
+        "lightIsOn": true,
+        "lastMotionDetection": "2019-03-17 03:04:11",
+        "doorSensors": [
+            { "isOpen": false },
+            { "isOpen": false }
+        ],
+        "windowSensors": [
+            { "isOpen": true },
+            { "isOpen": true },
+            { "isOpen": false },
+            { "isOpen": true }
+        ]
+    },
+    {
+        "id": 37,
+        "temperature": 28,
+        "humidity": 18,
+        "watt": 180,
+        "lightIsOn": true,
+        "lastMotionDetection": "2019-03-17 03:04:11",
+        "doorSensors": [
+            { "isOpen": false },
+            { "isOpen": false }
+        ],
+        "windowSensors": [
+            { "isOpen": false },
+            { "isOpen": false },
+            { "isOpen": false },
+            { "isOpen": false }
+        ]
+    }
+]

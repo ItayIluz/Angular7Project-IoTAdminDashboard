@@ -1,0 +1,16 @@
+<div id="{{'motion-lighting-classroom-'+data.id}}" class="motion-lighting-display card bg-light mb-3">
+    <div class="classroom-title card-header"><span>Class {{data.classroom}}</span></div>
+    <div class="card-body">
+        <div>
+            <app-motion-sensor 
+                [lastMotionDetection]=this.data.lastMotionDetection>
+            </app-motion-sensor>
+        </div>
+        <hr>
+        <div>
+            <app-lighting-sensor 
+                [lightIsOn]=this.data.lightIsOn>
+            </app-lighting-sensor>
+        </div>
+    </div>
+</div>

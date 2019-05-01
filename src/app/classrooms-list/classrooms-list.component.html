@@ -1,0 +1,40 @@
+<div class="mat-elevation-z8 margin-left">
+  <div class="search-box">
+    <mat-form-field>
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+  <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="temperature">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Temperature</th>
+      <td mat-cell *matCellDef="let row">{{row.temperature}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="humidity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Humidity</th>
+      <td mat-cell *matCellDef="let row">{{row.humidity}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="watt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Watt</th>
+      <td mat-cell *matCellDef="let row">{{row.watt}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)" class="ripple"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="dataSource.data.length"
+      [pageIndex]="0"
+      [pageSize]="50"
+      [pageSizeOptions]="[25, 50, 100, 250]">
+  </mat-paginator>
+</div>

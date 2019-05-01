@@ -1,0 +1,8 @@
+{
+    "/mobile-gateway/jsonrpc/*": {
+      "target": "https://sb.ch.amdocs.com",
+      "secure": false,
+      "logLevel": "debug",
+      "changeOrigin": true
+    }
+}

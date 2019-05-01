@@ -1,0 +1,15 @@
+.classroom-cards {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.dashboard-card-content {
+  text-align: center;
+  padding: 15px;
+}
+
+.dashboard-card {
+  flex: 1 0 25%; /* explanation below */
+  margin: 15px 25px;
+}
