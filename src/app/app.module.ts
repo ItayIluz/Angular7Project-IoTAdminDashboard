@@ -27,6 +27,7 @@ import { LightingSensorComponent } from './lighting-sensor/lighting-sensor.compo
 import { MotionLightingComponent } from './motion-lighting/motion-lighting.component';
 import { DoorsWindowsComponent } from './doors-windows/doors-windows.component';
 import { ClassroomViewComponent } from './classroom-view/classroom-view.component';
+import { AuthorizationService } from './authorization.service';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,7 @@ import { ClassroomViewComponent } from './classroom-view/classroom-view.componen
     DoorsWindowsComponent,
     MotionLightingComponent,
   ],
-  providers: [ClassroomService ],
+  providers: [ClassroomService, AuthorizationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,33 +2,103 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Classroom } from './interfaces/classroom';
+import { map, flatMap } from 'rxjs/operators';
+import { AuthorizationService } from './authorization.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassroomService {
 
-  private encodedSecurityToken: string;
+  private DEVICE_TYPES = [
+    "GENERAL_PARENT_ZWAVE", // Temperature/Humidity/Light/Door sensor
+    "TYCO_MOTION", // Motion sensor
+    "TYCO_CONTACT", // Window sensor
+    "GENERAL_BINARY_SWITCH_ZWAVE", // Energy sensor
+    "GENERAL_ALARM_V2_ZWAVE" // Door sensor
+  ];
 
-  constructor(private http: HttpClient) {
-
-  /*  let data = JSON.stringify({"jsonrpc":"2.0", "method": "authentify", "params": [{"password": "Password1", "username": "orangeDemo"}]});
-
-    this.http.post<{result: {authenticationDetails: {securityToken: string}}}>('https://sb.ch.amdocs.com//mobile-gateway/jsonrpc/AuthenticationService' , data)
-    .subscribe(response => 
-      this.encodedSecurityToken = "Basic " + btoa("orangeDemo:" + response.result.authenticationDetails.securityToken)
-    );*/
-
-  }
+  constructor(private http: HttpClient, private authorizationService: AuthorizationService) {}
 
   getAllClassrooms(): Observable<Classroom[]> {
     //return this.http.get<Classroom[]>('./api/classrooms');
     return this.http.get<Classroom[]>('./assets/classroom-data.json');
   }
 
-  getClassroom(id: number): Observable<Classroom> {
-    //return this.http.get<Classroom>('./api/classrooms/' + number);
-    return this.http.get<Classroom>('./assets/classroom-data.json' + id);
+  getClassroom(classID: number): Observable<Classroom>{
+    
+    return this.authorizationService.getToken().pipe( // Get the token whether it already exists or not
+      flatMap(token => { 
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'text/plain',
+            'Authorization': token,
+          }),
+        };
+       
+        // Get all relevant sensors for the classroom 
+        let data2 = JSON.stringify({"jsonrpc":"2.0", "method": "getDevicesByType", "params": [classID, this.DEVICE_TYPES]});
+        return this.http.post('/mobile-gateway/jsonrpc/HomeService', data2, httpOptions).pipe(
+          map((response: any) => {
+
+              const classroomToReturn: Classroom = {
+                id: classID,
+                temperature: 0,
+                humidity: 0,
+                watt: 0,
+                light: 0,
+                lastMotionDetected: null,
+                doorSensors: [],
+                windowSensors: []
+              };
+
+              // Sort the sensors
+              let sensors = {};
+              this.DEVICE_TYPES.forEach(a => sensors[a] = []);
+              response.result.forEach(device => {
+                sensors[device.type.toUpperCase()].push(device);
+              });
+
+              // Create the classroom object to return
+
+              // Handle temperature/humidity/light sensors
+              sensors["GENERAL_PARENT_ZWAVE"].forEach(parentSensor => {
+                parentSensor.children.forEach(childSensor => {
+                  let sensorData = childSensor.multiLevelSensorValue;
+                  classroomToReturn[sensorData.type] = sensorData.value;
+                });
+              })
+
+              // Handle energy sensor
+              sensors["GENERAL_BINARY_SWITCH_ZWAVE"].forEach(parentSensor => {
+
+              });
+
+              // Handle door sensor
+              sensors["GENERAL_ALARM_V2_ZWAVE"].forEach(parentSensor => {
+
+              });
+
+              // Handle window sensor
+              sensors["GENERAL_PARENT_ZWAVE"].forEach(parentSensor => {
+
+              });
+
+              // Handle motion sensor
+              sensors["TYCO_MOTION"].forEach(parentSensor => {
+
+              });
+  
+              console.log(sensors);
+              /*for(let i = 0; i < response.result.length; i++){
+                console.log(response.result[i]);
+              }*/
+      
+              return classroomToReturn;
+            })
+          );
+        })
+      );
   }
 
   insertClassroom(classroom: Classroom): Observable<Classroom> {
@@ -46,7 +116,7 @@ export class ClassroomService {
     return this.http.delete('./assets/classroom-data.json' + id);
   }
 
-  test(){
+ /* test(){
 
     let data = JSON.stringify({"jsonrpc":"2.0", "method": "authentify", "params": [{"password": "Password1", "username": "orangeDemo"}]});
 
@@ -70,7 +140,7 @@ export class ClassroomService {
           });
     });
     
-  }
+  }*/
 
 
   saveTextAsFile (data: string, filename: string){

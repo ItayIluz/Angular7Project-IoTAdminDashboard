@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LightingSensorComponent implements OnInit{
 
-  @Input() lightIsOn: boolean;
+  @Input() light: number;
 
   constructor() { }
 

@@ -19,22 +19,22 @@ export class MotionLightingViewComponent implements OnInit {
       new SensorItem(MotionLightingComponent, {
         id: 34, 
         lastMotionDetection: new Date(),
-        lightIsOn: true    
+        light: 50    
       }),
       new SensorItem(MotionLightingComponent, {
         id: 35, 
         lastMotionDetection: new Date(),
-        lightIsOn: false   
+        light: 0   
       }),
       new SensorItem(MotionLightingComponent, {
         id: 36, 
         lastMotionDetection: new Date(),
-        lightIsOn: true   
+        light: 20   
       }),
       new SensorItem(MotionLightingComponent, {
         id: 37, 
         lastMotionDetection: new Date(),
-        lightIsOn: false    
+        light: 0    
       }),
     ];
   } 
