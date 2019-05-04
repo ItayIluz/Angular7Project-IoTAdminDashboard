@@ -1,25 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SensorItem } from "../sensor-view/sensor-item";
 import { PowermeterComponent } from '../powermeter/powermeter.component';
+import { ClassroomService } from '../classroom.service';
 
 @Component({
   selector: 'app-powermeter-view',
   templateUrl: './powermeter-view.component.html',
   styleUrls: ['./powermeter-view.component.css']
 })
-export class PowermeterViewComponent implements OnInit {
+export class PowermeterViewComponent implements OnInit{
 
-  powermeters: Array<SensorItem>;  
+  powermeters: Array<SensorItem> = [];  
 
-  constructor() { }
+  constructor(private classroomService: ClassroomService) {}
 
   ngOnInit() {
-    this.powermeters = [
-      new SensorItem(PowermeterComponent, {id: 34, watt: 100}),
-      new SensorItem(PowermeterComponent, {id: 35, watt: 35}),
-      new SensorItem(PowermeterComponent, {id: 36, watt: 66}),
-      new SensorItem(PowermeterComponent, {id: 37, watt: 26}),
-    ];
+    this.classroomService.getAllClassrooms().subscribe(classroomData => {
+      classroomData.forEach(classroom => this.powermeters.push(new SensorItem(PowermeterComponent, classroom)));
+    });
   } 
 
 }

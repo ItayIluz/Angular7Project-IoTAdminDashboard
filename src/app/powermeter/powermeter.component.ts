@@ -31,7 +31,7 @@ export class PowermeterComponent implements OnInit, SensorContainer {
         /**
          * Normal axis
          */
-        const MAX = 500;
+        const MAX = 200;
        
         let axis = chart.xAxes.push(new am4charts.ValueAxis() as any);
         axis.min = 0;

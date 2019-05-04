@@ -7,14 +7,14 @@
         "light": 40,
         "lastMotionDetection": "2019-03-17 03:04:11",
         "doorSensors": [
-            { "isOpen": true },
-            { "isOpen": false }
+            { "status": "OPEN" },
+            { "status": "CLOSED" }
         ],
         "windowSensors": [
-            { "isOpen": true },
-            { "isOpen": false },
-            { "isOpen": false },
-            { "isOpen": true }
+            { "status": "OPEN" },
+            { "status": "CLOSED" },
+            { "status": "CLOSED" },
+            { "status": "OPEN" }
         ]
     },
     {
@@ -25,14 +25,14 @@
         "light": 50,
         "lastMotionDetection": "2019-03-17 03:04:11",
         "doorSensors": [
-            { "isOpen": false },
-            { "isOpen": false }
+            { "status": "CLOSED" },
+            { "status": "CLOSED" }
         ],
         "windowSensors": [
-            { "isOpen": true },
-            { "isOpen": true },
-            { "isOpen": false },
-            { "isOpen": true }
+            { "status": "OPEN" },
+            { "status": "OPEN" },
+            { "status": "CLOSED" },
+            { "status": "OPEN" }
         ]
     },
     {
@@ -43,14 +43,14 @@
         "light": 20,
         "lastMotionDetection": "2019-03-17 03:04:11",
         "doorSensors": [
-            { "isOpen": false },
-            { "isOpen": false }
+            { "status": "CLOSED" },
+            { "status": "CLOSED" }
         ],
         "windowSensors": [
-            { "isOpen": true },
-            { "isOpen": true },
-            { "isOpen": false },
-            { "isOpen": true }
+            { "status": "OPEN" },
+            { "status": "OPEN" },
+            { "status": "CLOSED" },
+            { "status": "OPEN" }
         ]
     },
     {
@@ -61,14 +61,14 @@
         "light": 30,
         "lastMotionDetection": "2019-03-17 03:04:11",
         "doorSensors": [
-            { "isOpen": false },
-            { "isOpen": false }
+            { "status": "CLOSED" },
+            { "status": "CLOSED" }
         ],
         "windowSensors": [
-            { "isOpen": false },
-            { "isOpen": false },
-            { "isOpen": false },
-            { "isOpen": false }
+            { "status": "CLOSED" },
+            { "status": "CLOSED" },
+            { "status": "CLOSED" },
+            { "status": "CLOSED" }
         ]
     }
 ]

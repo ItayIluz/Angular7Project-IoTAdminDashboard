@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SensorItem } from "../sensor-view/sensor-item";
 import { MotionLightingComponent } from '../motion-lighting/motion-lighting.component';
+import { ClassroomService } from '../classroom.service';
 
 @Component({
   selector: 'app-motion-lighting-view',
@@ -9,34 +10,13 @@ import { MotionLightingComponent } from '../motion-lighting/motion-lighting.comp
 })
 export class MotionLightingViewComponent implements OnInit {
 
-  sensors: Array<SensorItem>;
+  sensors: Array<SensorItem> = [];
 
-  constructor() { }
+  constructor(private classroomService: ClassroomService) { }
 
   ngOnInit() {
-     //TODO get data from server
-    this.sensors = [
-      new SensorItem(MotionLightingComponent, {
-        id: 34, 
-        lastMotionDetection: new Date(),
-        light: 50    
-      }),
-      new SensorItem(MotionLightingComponent, {
-        id: 35, 
-        lastMotionDetection: new Date(),
-        light: 0   
-      }),
-      new SensorItem(MotionLightingComponent, {
-        id: 36, 
-        lastMotionDetection: new Date(),
-        light: 20   
-      }),
-      new SensorItem(MotionLightingComponent, {
-        id: 37, 
-        lastMotionDetection: new Date(),
-        light: 0    
-      }),
-    ];
-  } 
-
+    this.classroomService.getAllClassrooms().subscribe(classroomData => {
+      classroomData.forEach(classroom => this.sensors.push(new SensorItem(MotionLightingComponent, classroom)));
+    });
+  }
 }

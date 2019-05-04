@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SensorItem } from "../sensor-view/sensor-item";
 import { ThermometerComponent } from '../thermometer/thermometer.component';
+import { ClassroomService } from '../classroom.service';
 
 @Component({
   selector: 'app-thermometer-view',
@@ -9,18 +10,14 @@ import { ThermometerComponent } from '../thermometer/thermometer.component';
 })
 
 export class ThermometerViewComponent implements OnInit {
-  thermometers: Array<SensorItem>;
+  thermometers: Array<SensorItem> = [];
 
-  constructor() { }
+  constructor(private classroomService: ClassroomService) { }
 
   ngOnInit() {
-     //TODO get data from server
-    this.thermometers = [
-      new SensorItem(ThermometerComponent, {id: 34, humidity: 15, temperature: 24}),
-      new SensorItem(ThermometerComponent, {id: 35, humidity: 12, temperature: 25}),
-      new SensorItem(ThermometerComponent, {id: 36, humidity: 14, temperature: 20}),
-      new SensorItem(ThermometerComponent, {id: 37, humidity: 15, temperature: 26}),
-    ];
+    this.classroomService.getAllClassrooms().subscribe(classroomData => {
+      classroomData.forEach(classroom => this.thermometers.push(new SensorItem(ThermometerComponent, classroom)));
+    });
   } 
 
 }

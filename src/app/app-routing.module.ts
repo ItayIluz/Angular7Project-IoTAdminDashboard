@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'powermeter-view', component: PowermeterViewComponent },
   { path: 'motion-lighting-view', component: MotionLightingViewComponent },
   { path: 'doors-windows-view', component: DoorsWindowsViewComponent },
-  { path: 'classroom/:id', component: ClassroomViewComponent },
+  { path: 'classroom', component: ClassroomViewComponent },
 ];
 
 @NgModule({

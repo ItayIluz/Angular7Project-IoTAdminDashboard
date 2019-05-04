@@ -1,1 +1,1 @@
-<app-sensor-view title="Motion & Lighting View" [sensorItems]="sensors"></app-sensor-view>
+<app-sensor-view *ngIf="sensors.length > 0" title="Motion & Lighting View" [sensorItems]="sensors"></app-sensor-view>

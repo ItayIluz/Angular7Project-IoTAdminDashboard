@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthorizationService } from './authorization.service';
+import { ClassroomService } from './classroom.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { AuthorizationService } from './authorization.service';
 export class AppComponent {
   title = 'administrator-dashboard';
 
-  constructor (private authroizationService: AuthorizationService) {
+  constructor (private classroomService: ClassroomService, private authroizationService: AuthorizationService) {
     authroizationService.getToken();
+    classroomService.getAllClassrooms();
   }
 }

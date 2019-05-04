@@ -7,12 +7,14 @@ import { Component, OnInit, Input} from '@angular/core';
 })
 export class DoorSensorComponent implements OnInit {
 
-  @Input() isOpen: boolean;
+  @Input() status: string;
   @Input() number: number;
 
   constructor() { }
 
   ngOnInit() {
+    if(this.status === "ON") this.status = "OPEN";
+    else if(this.status === "OFF") this.status = "CLOSED";
   }
 
 }

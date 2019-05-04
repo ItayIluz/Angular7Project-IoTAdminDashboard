@@ -1,1 +1,1 @@
-<app-sensor-view title="Energy Consumption" [sensorItems]="powermeters"></app-sensor-view>
+<app-sensor-view *ngIf="powermeters.length > 0" title="Energy Consumption" [sensorItems]="powermeters"></app-sensor-view>

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatTable } from '@angular/material';
 import { Router } from '@angular/router';
 import { ClassroomService } from '../classroom.service';
 import { Classroom } from '../interfaces/classroom';
+import { DataSource } from '@amcharts/amcharts4/core';
 
 @Component({
   selector: 'app-classrooms-list',
@@ -15,13 +16,18 @@ export class ClassroomsListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<Classroom>();
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'temperature', 'humidity', 'watt'];
+  /** Columns displayed in the table. Columns numbers can be added, removed, or reordered. */
+  displayedColumns = ['number', 'temperature', 'humidity', 'watt'];
 
   constructor(private router: Router, private classroomService: ClassroomService){}
 
   ngOnInit() {
-    this.classroomService.getClassroom(81004).subscribe(classroom => console.log(classroom));
+    /*this.classroomService.getAllClassrooms().subscribe(classroomsData => this.dataSource.data = classroomsData as Classroom[]);
+    this.classroomService.getClassroom(81004).subscribe(classroom => {
+      let data = this.dataSource.data;
+      data.push(classroom);
+      this.dataSource.data = data;
+    });*/
     this.classroomService.getAllClassrooms().subscribe(classroomsData => this.dataSource.data = classroomsData as Classroom[]);
   }
 
@@ -35,7 +41,7 @@ export class ClassroomsListComponent implements OnInit, AfterViewInit {
   }
 
   selectRow(classroom) {
-    this.router.navigate(['/classroom', classroom.id]);
+    this.router.navigate(['classroom'], {state: {"classroom": classroom}});
   }
 
 }

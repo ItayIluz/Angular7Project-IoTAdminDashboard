@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DoorsWindowsComponent } from '../doors-windows/doors-windows.component';
 import { SensorItem } from '../sensor-view/sensor-item';
+import { ClassroomService } from '../classroom.service';
 
 @Component({
   selector: 'app-doors-windows-view',
@@ -9,66 +10,14 @@ import { SensorItem } from '../sensor-view/sensor-item';
 })
 export class DoorsWindowsViewComponent implements OnInit {
 
-  sensors: Array<SensorItem>;
+  sensors: Array<SensorItem> = [];
 
-  constructor() { }
+  constructor(private classroomService: ClassroomService) { }
 
   ngOnInit() {
-     //TODO get data from server
-    this.sensors = [
-      new SensorItem(DoorsWindowsComponent, {
-        id: 34, 
-        doorSensors: [
-          { isOpen: true},
-          { isOpen: false}
-        ],
-        windowSensors: [
-          { isOpen: true },
-          { isOpen: false },
-          { isOpen: false },
-          { isOpen: true },
-        ]
-      }),
-      new SensorItem(DoorsWindowsComponent, {
-        id: 35, 
-        doorSensors: [
-          { isOpen: true},
-          { isOpen: false}
-        ],
-        windowSensors: [
-          { isOpen: true },
-          { isOpen: false },
-          { isOpen: false },
-          { isOpen: true },
-        ]
-      }),
-      new SensorItem(DoorsWindowsComponent, {
-        id: 36, 
-        doorSensors: [
-          { isOpen: true},
-          { isOpen: false}
-        ],
-        windowSensors: [
-          { isOpen: true },
-          { isOpen: false },
-          { isOpen: false },
-          { isOpen: true },
-        ]
-      }),
-      new SensorItem(DoorsWindowsComponent, {
-        id: 37, 
-        doorSensors: [
-          { isOpen: true},
-          { isOpen: false}
-        ],
-        windowSensors: [
-          { isOpen: true },
-          { isOpen: false },
-          { isOpen: false },
-          { isOpen: true },
-        ]
-      }),
-    ];
+    this.classroomService.getAllClassrooms().subscribe(classroomData => {
+      classroomData.forEach(classroom => this.sensors.push(new SensorItem(DoorsWindowsComponent, classroom)));
+    });
   } 
 
 }

@@ -1,1 +1,1 @@
-<app-sensor-view title="Temperature & Humidity" [sensorItems]="thermometers"></app-sensor-view>
+<app-sensor-view *ngIf="thermometers.length > 0" title="Temperature & Humidity" [sensorItems]="thermometers"></app-sensor-view>
