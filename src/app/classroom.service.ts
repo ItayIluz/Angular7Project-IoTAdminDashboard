@@ -75,7 +75,7 @@ export class ClassroomService implements OnInit {
                 humidity: 0,
                 watt: 0,
                 light: 0,
-                lastMotionDetected: null,
+                lastMotionDetected: new Date(),
                 doorSensors: [],
                 windowSensors: []
               };
