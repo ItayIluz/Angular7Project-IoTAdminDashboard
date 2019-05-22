@@ -12,6 +12,8 @@ export class MotionSensorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(this.lastMotionDetection === undefined)
+      this.lastMotionDetection = new Date();
   }
 
 }

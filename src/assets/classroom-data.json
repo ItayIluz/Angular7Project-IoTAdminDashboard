@@ -1,9 +1,9 @@
 [
     {
         "id": 34,
-        "temperature": 24,
-        "humidity": 12,
-        "watt": 100,
+        "temperature": 28.7,
+        "humidity": 51,
+        "watt": 10,
         "light": 40,
         "lastMotionDetection": "2019-03-17 03:04:11",
         "doorSensors": [

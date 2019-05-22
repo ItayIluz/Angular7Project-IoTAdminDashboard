@@ -1,24 +1,34 @@
-<div *ngIf="classroom" class="classroom-cards margin-left">
-  <mat-card class="dashboard-card">
-    <mat-card-header>
-      <mat-card-title>
-        Temperature & Humidity
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="dashboard-card-content">
-        <app-thermometer [data]="classroom"></app-thermometer>
-    </mat-card-content>
-  </mat-card>
-    <mat-card class="dashboard-card">
-      <mat-card-header>
-        <mat-card-title>
-          Energy Consumption
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="dashboard-card-content">
-          <app-powermeter [data]="classroom"></app-powermeter>
-      </mat-card-content>
-    </mat-card>
+<mat-card class="classroom-view-conatiner margin-left">
+  <mat-card-header>
+    <mat-card-title>
+      <button title="Go Back" mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      Classroom View <span *ngIf="classroom">- Classroom #{{classroom.id}}</span>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="classroom" class="classroom-cards">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Temperature & Humidity
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+            <app-thermometer [data]="classroom"></app-thermometer>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Energy Consumption
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+            <app-powermeter [data]="classroom"></app-powermeter>
+        </mat-card-content>
+      </mat-card>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -29,15 +39,17 @@
             <app-doors-windows [data]="classroom"></app-doors-windows>
         </mat-card-content>
       </mat-card>
-        <mat-card class="dashboard-card">
-          <mat-card-header>
-            <mat-card-title>
-              Motion Detection & Lighting
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content class="dashboard-card-content">
-              <app-motion-lighting [data]="classroom"></app-motion-lighting>
-          </mat-card-content>
-        </mat-card>
-  </div>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Motion Detection & Lighting
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+            <app-motion-lighting [data]="classroom"></app-motion-lighting>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>
   

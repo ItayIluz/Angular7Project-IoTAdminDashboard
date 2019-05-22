@@ -19,20 +19,19 @@ export class PowermeterComponent implements OnInit, SensorContainer {
   constructor(private zone: NgZone) {}
 
   ngOnInit(){
-  
+    
   }
 
   ngAfterViewInit() {
     this.zone.runOutsideAngular(() => {
       
+        const MAX = 200;
+
         let chart = am4core.create("powermeter-classroom-" + this.data.id, am4charts.GaugeChart);
         chart.innerRadius = am4core.percent(82);
 
-        /**
-         * Normal axis
-         */
-        const MAX = 200;
-       
+        // Normal axis
+        
         let axis = chart.xAxes.push(new am4charts.ValueAxis() as any);
         axis.min = 0;
         axis.max = MAX;
@@ -44,13 +43,8 @@ export class PowermeterComponent implements OnInit, SensorContainer {
         axis.renderer.ticks.template.length = 10;
         axis.renderer.grid.template.disabled = false;
         axis.renderer.labels.template.radius = 30;
-       /* axis.renderer.labels.template.adapter.add("text", function(text) {
-          return text + "%";
-        })*/
 
-        /**
-         * Axis for ranges
-         */
+        // Axis for ranges
 
         let axis2 = chart.xAxes.push(new am4charts.ValueAxis() as any);
         axis2.min = 0;
@@ -73,9 +67,7 @@ export class PowermeterComponent implements OnInit, SensorContainer {
         range1.axisFill.fillOpacity = 1;
         range1.axisFill.fill = am4core.color("#cccccc");
 
-        /**
-         * Label
-         */
+        // Label
 
         let label = chart.radarContainer.createChild(am4core.Label);
         label.isMeasured = false;
@@ -91,9 +83,7 @@ export class PowermeterComponent implements OnInit, SensorContainer {
         classLabel.fontSize = 14;
         classLabel.align = "center";
 
-        /**
-         * Hand
-         */
+        //  Hand
 
         let hand = chart.hands.push(new am4charts.ClockHand());
         hand.fill = axis2.renderer.line.stroke;
@@ -104,9 +94,11 @@ export class PowermeterComponent implements OnInit, SensorContainer {
         hand.startWidth = 3;
         hand.value = this.data.watt;
 
-        hand.events.on("propertychanged", function(ev) {
-          let wattValue = ev.target.value;
+        hand.events.on("propertychanged", event => {
 
+          let wattValue = event.target.value
+          
+          hand.value = wattValue;
           range0.endValue = wattValue;
           range1.value = wattValue;
 

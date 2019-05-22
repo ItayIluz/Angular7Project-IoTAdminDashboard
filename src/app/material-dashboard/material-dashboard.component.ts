@@ -1,17 +1,50 @@
-import { Component  } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit  } from '@angular/core';
+import { ClassroomService } from '../classroom.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-material-dashboard',
   templateUrl: './material-dashboard.component.html',
   styleUrls: ['./material-dashboard.component.css']
 })
-export class MaterialDashboardComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  tempGauges = ["a", "b"]
+export class MaterialDashboardComponent implements OnInit {
+  private allClassrooms = [];
+  private tempMinClassrooms = [];
+  private tempMaxClassrooms = [];
+  private energyMaxClassrooms = [];
+  private notificationsData;
 
-  type = 'line';
+  constructor(private router: Router, private classroomService: ClassroomService) { }
+
+  ngOnInit() {
+    this.classroomService.getAllClassrooms().subscribe(classroomData => {
+      this.allClassrooms = classroomData;
+
+      this.classroomService.getNotificationsJSON().subscribe((notificationsData: any) => {
+        this.notificationsData = notificationsData;
+
+        this.allClassrooms.forEach(classroom => {
+
+          if(classroom.watt >= notificationsData.energyMax)
+            this.energyMaxClassrooms.push(classroom);
+
+          if(classroom.temperature >= notificationsData.temperatureMax)
+            this.tempMaxClassrooms.push(classroom);
+
+          if(classroom.temperature <= notificationsData.temperatureMin)
+            this.tempMinClassrooms.push(classroom);
+        });
+      });
+    });
+  } 
+
+  viewClassroom(classroom){
+    this.router.navigate(['classroom'], {state: {"classroom": classroom}});
+  }
+}
+
+
+  /*type = 'line';
   data = {
     labels: ["January", "February", "March", "April", "May", "June", "July","test"],
     datasets: [
@@ -27,6 +60,7 @@ export class MaterialDashboardComponent {
       }
     ]
   };
+
   options = {  
     
     chartArea:{
@@ -53,6 +87,7 @@ export class MaterialDashboardComponent {
       }]
     }
   };
+  // Based on the screen size, switch from standard to one column per row 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
@@ -71,7 +106,4 @@ export class MaterialDashboardComponent {
         { title: 'Card 4', cols: 1, rows: 1 }
       ];
     })
-  );
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
-}
+  );*/

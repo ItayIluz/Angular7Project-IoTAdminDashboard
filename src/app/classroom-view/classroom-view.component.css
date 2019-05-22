@@ -13,3 +13,7 @@
   flex: 1 0 25%; /* explanation below */
   margin: 15px 25px;
 }
+
+.classroom-view-conatiner {
+  background: rgba(0, 0, 0, 0.03);
+}

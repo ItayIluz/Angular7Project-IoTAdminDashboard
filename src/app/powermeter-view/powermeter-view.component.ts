@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SensorItem } from "../sensor-view/sensor-item";
 import { PowermeterComponent } from '../powermeter/powermeter.component';
 import { ClassroomService } from '../classroom.service';
@@ -16,8 +16,9 @@ export class PowermeterViewComponent implements OnInit{
 
   ngOnInit() {
     this.classroomService.getAllClassrooms().subscribe(classroomData => {
-      classroomData.forEach(classroom => this.powermeters.push(new SensorItem(PowermeterComponent, classroom)));
+      classroomData.forEach(classroom => {
+        this.powermeters.push(new SensorItem(PowermeterComponent, classroom))
+      });
     });
   } 
-
 }

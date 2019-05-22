@@ -22,12 +22,6 @@ export class ClassroomsListComponent implements OnInit, AfterViewInit {
   constructor(private router: Router, private classroomService: ClassroomService){}
 
   ngOnInit() {
-    /*this.classroomService.getAllClassrooms().subscribe(classroomsData => this.dataSource.data = classroomsData as Classroom[]);
-    this.classroomService.getClassroom(81004).subscribe(classroom => {
-      let data = this.dataSource.data;
-      data.push(classroom);
-      this.dataSource.data = data;
-    });*/
     this.classroomService.getAllClassrooms().subscribe(classroomsData => this.dataSource.data = classroomsData as Classroom[]);
   }
 

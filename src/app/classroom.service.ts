@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Classroom } from './interfaces/classroom';
 import { map, flatMap } from 'rxjs/operators';
@@ -19,16 +19,22 @@ export class ClassroomService implements OnInit {
   ];
 
   private allClassrooms = [];
+  //private refreshData: Subscription; // for refreshing the data 
 
-  constructor(private http: HttpClient, private authorizationService: AuthorizationService) {}
-
-  ngOnInit(){
-    this.getClassroomsFromJSON().subscribe(classroomsData => this.allClassrooms = classroomsData as Classroom[]);
-    this.getClassroomFromServer(81004).subscribe(classroom => this.allClassrooms.push(classroom));
+  constructor(private http: HttpClient, private authorizationService: AuthorizationService) {
+    // Used to refresh the data every 30 seconds
+    /*this.refreshData = timer(30000, 30000).pipe(
+      switchMap(() => this.getAllClassrooms(true))
+    ).subscribe(result => console.log(result));*/
   }
 
-  getAllClassrooms(): Observable<Classroom[]> {
-    if(this.allClassrooms.length == 0){
+  ngOnInit(){
+    this.getAllClassrooms();
+  }
+
+  getAllClassrooms(refresh = false): Observable<Classroom[]> {
+    
+    if(this.allClassrooms.length == 0 || refresh){
       return this.getClassroomsFromJSON().pipe(
         flatMap(classroomsData => {
           this.allClassrooms = classroomsData as Classroom[];
@@ -44,12 +50,15 @@ export class ClassroomService implements OnInit {
   }
 
   getClassroomsFromJSON(): Observable<Classroom[]> {
-    //return this.http.get<Classroom[]>('./api/classrooms');
     return this.http.get<Classroom[]>('./assets/classroom-data.json').pipe(
       map((data: Classroom[]) => {
         data.forEach(classroom => classroom.number = (!classroom.number ? classroom.number = classroom.id : classroom.number));
         return data;
       }));
+  }
+
+  getNotificationsJSON(){
+    return this.http.get('./assets/notifications.json');
   }
 
   getClassroomFromServer(classID: number): Observable<Classroom>{
@@ -75,7 +84,7 @@ export class ClassroomService implements OnInit {
                 humidity: 0,
                 watt: 0,
                 light: 0,
-                lastMotionDetected: new Date(),
+                lastMotionDetected: null,
                 doorSensors: [],
                 windowSensors: []
               };
@@ -90,13 +99,13 @@ export class ClassroomService implements OnInit {
               // Handle temperature/humidity/light sensors
               sensors["GENERAL_PARENT_ZWAVE"][0].children.forEach(childSensor => {
                 let sensorData = childSensor.multiLevelSensorValue;
-                classroomToReturn[sensorData.type] = sensorData.value;
+                classroomToReturn[sensorData.type] = parseFloat(sensorData.value) || 0;
               });
 
               // Handle energy sensor
               let energySensorAttributes = {};
               sensors["GENERAL_BINARY_SWITCH_ZWAVE"][0].attributes.forEach(attribute => energySensorAttributes[attribute.name] = attribute.value);
-              classroomToReturn.watt = energySensorAttributes["device.energy.instant.power"];
+              classroomToReturn.watt = parseFloat(energySensorAttributes["device.energy.instant.power"]) || 0;
 
               // Handle door sensor
               sensors["GENERAL_ALARM_V2_ZWAVE"].forEach(doorSensor => {
@@ -117,32 +126,9 @@ export class ClassroomService implements OnInit {
         })
       );
   }
-
-  saveTextAsFile (data: string, filename: string){
-    
-    if(!data) {
-        console.error('Console.save: No data')
-        return;
-    }
-
-    if(!filename) filename = 'console.json'
-
-    let blob = new Blob([data], {type: 'text/plain'}),
-        e = document.createEvent('MouseEvents'),
-        a = document.createElement('a')
-    
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) { // For Internet Explorer:
-      window.navigator.msSaveOrOpenBlob(blob, filename);
-    } else {
-      let e = document.createEvent('MouseEvents'),
-          a = document.createElement('a');
-
-      a.download = filename;
-      a.href = window.URL.createObjectURL(blob);
-      a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':');
-      e.initEvent('click', true, false);
-      a.dispatchEvent(e);
-    }
-  } 
-  //this.saveTextAsFile(JSON.stringify(data), "notifications.json")
+  
+   // unsubscribe from data refreshing
+  /*ngOnDestroy() {
+    this.refreshData.unsubscribe();
+  }*/
 }
