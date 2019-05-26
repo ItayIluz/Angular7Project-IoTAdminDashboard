@@ -18,6 +18,7 @@ export class SensorViewComponent implements OnInit {
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
+    // Dynamically render SensorContainer components
     let viewContainerRef = this.sensorData.viewContainerRef;
     for(let i = 0; i < this.sensorItems.length; i++) {
     

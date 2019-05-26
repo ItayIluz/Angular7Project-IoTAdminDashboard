@@ -32,6 +32,7 @@ export class ClassroomService implements OnInit {
     this.getAllClassrooms();
   }
 
+  // Get all classrooms from local JSON and server
   getAllClassrooms(refresh = false): Observable<Classroom[]> {
     
     if(this.allClassrooms.length == 0 || refresh){

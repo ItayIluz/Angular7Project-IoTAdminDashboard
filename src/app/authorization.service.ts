@@ -13,6 +13,7 @@ export class AuthorizationService {
 
   constructor(private http: HttpClient) {}
 
+  // Get the authorization token and store it
   getToken(): Observable<string>{
 
     if(this.token === undefined){
@@ -30,20 +31,3 @@ export class AuthorizationService {
     }
   }
 }
-/* using fetch
-async getToken() { 
-
-      if(this.token === undefined){
-        const response = await fetch("/mobile-gateway/jsonrpc/AuthenticationService", {
-          method: "POST",
-          body: JSON.stringify({"jsonrpc":"2.0", "method": "authentify", "params": [{"password": "Password1", "username": "orangeDemo"}]})
-        });
-
-        const resultObject = await response.json(); 
-        this.token = "Basic " + btoa("orangeDemo:" + resultObject.result.authenticationDetails.securityToken);
-      }
-
-      return this.token;
-
-    }
-*/
